@@ -18,14 +18,15 @@ services:
                # Run DB migrations, then start FastAPI/SocketIO server
 
   frontend:
-    build: ./frontend
-    environment:
-      - VITE_API_URL=http://localhost:8000   # back-end base URL for API
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
     ports:
-      - "3000:3000"        # front-end dev server
+      - "3000:3000"
+    env_file:
+      - .env       # if you need VITE_API_URL in .env
     depends_on:
       - backend
-    command: ["yarn", "dev", "--host", "0.0.0.0"]  # start Vite dev server
 
   db:
     image: postgres:15-alpine

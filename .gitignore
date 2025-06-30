@@ -44,3 +44,4 @@ docker-compose.override.yml           # local overrides :contentReference[oaicit
 # ──────────────────────────────────────────────────────────
 .DS_Store                             # macOS file metadata :contentReference[oaicite:17]{index=17}
 Thumbs.db                             # Windows image cache :contentReference[oaicite:18]{index=18}
+node_modules
