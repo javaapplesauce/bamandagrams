@@ -1,0 +1,70 @@
+/* 1. Reset some defaults */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* 2. Set core root defaults */
+html {
+  line-height: 1.5;
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100vh;
+  text-rendering: optimizeLegibility;
+  background-color: theme('colors.gray.50');
+  color: theme('colors.gray.800');
+  font-family: 'Inter', sans-serif;
+}
+
+/* 3. Remove list styles on ul/ol elements */
+ul,
+ol {
+  list-style: none;
+}
+
+/* 4. Anchor defaults */
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* 5. Images and videos */
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+/* 6. Form elements inherit font */
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+/* 7. Make tables avoid legacy behavior */
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* 8. Tailwind base/components/utilities */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* 9. Your custom globals (optional) */
+:root {
+  --app-accent: theme('colors.blue.500');
+}
+
