@@ -7,7 +7,7 @@ from typing import Optional
 from typing import List
 from typing import Dict
 from fastapi import HTTPException
-
+from main import GameState
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 

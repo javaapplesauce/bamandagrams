@@ -3,6 +3,8 @@ from sqlalchemy.ext.asyncio import AsyncEngine, create_async_engine, async_sessi
 from sqlalchemy.orm import declarative_base, relationship, Mapped, mapped_column, Session
 from sqlalchemy import String, Integer, ForeignKey, DateTime, func, Text
 import os
+from typing import Optional, List
+import datetime
 
 DATABASE_URL = os.environ.get("DATABASE_URL", "sqlite+aiosqlite:///./test.db")
 
@@ -19,7 +21,7 @@ class User(Base):
     username: Mapped[str] = mapped_column(String(32), unique=True, index=True)
     email: Mapped[Optional[str]] = mapped_column(String(255), nullable=True)
     password_hash: Mapped[str] = mapped_column(String(128))
-    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
+    created_at: Mapped[datetime.datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
     # Relationships
     matches: Mapped[List["MatchPlayer"]] = relationship("MatchPlayer", back_populates="user")
 
@@ -27,8 +29,8 @@ class Match(Base):
     __tablename__ = "matches"
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     code: Mapped[str] = mapped_column(String(10), nullable=False)  # lobby code used
-    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
-    ended_at: Mapped[Optional[datetime]] = mapped_column(DateTime(timezone=True))
+    created_at: Mapped[datetime.datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
+    ended_at: Mapped[Optional[datetime.datetime]] = mapped_column(DateTime(timezone=True))
     # Relationships
     players: Mapped[List["MatchPlayer"]] = relationship("MatchPlayer", back_populates="match", cascade="all, delete-orphan")
     words: Mapped[List["WordPlayed"]] = relationship("WordPlayed", back_populates="match", cascade="all, delete-orphan")
