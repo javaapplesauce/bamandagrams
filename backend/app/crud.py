@@ -1,13 +1,12 @@
 # backend/app/crud.py
 from sqlalchemy.future import select
 from passlib.context import CryptContext
-from app import models, schemas
+from . import models, schemas
 import datetime
 from typing import Optional
 from typing import List
 from typing import Dict
 from fastapi import HTTPException
-from app.main import GameState
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 

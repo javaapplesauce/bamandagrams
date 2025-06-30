@@ -12,7 +12,7 @@ from fastapi.responses import HTMLResponse
 from pydantic import BaseModel
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from main import models, schemas, crud  # import ORM models, Pydantic schemas, DB CRUD ops (defined in other modules)
+from . import models, schemas, crud  # import ORM models, Pydantic schemas, DB CRUD ops (defined in other modules)
 
 # Environment configuration
 WEB_ORIGIN = os.environ.get("WEB_ORIGIN", "*")  # Allowed front-end origin (use '*' for dev)
