@@ -14,7 +14,7 @@ services:
       - "8000:8000"        # expose back-end API server
     command: >
       bash -c "alembic upgrade head &&
-               uvicorn backend.app.main:app --host 0.0.0.0 --port 8000"
+               uvicorn app.main:app --host 0.0.0.0 --port 8000"
                # Run DB migrations, then start FastAPI/SocketIO server
 
   frontend:
