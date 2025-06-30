@@ -1,0 +1,38 @@
+# backend/fly.toml
+app = "bamandagrams-backend"  # (Replace with your Fly app name)
+primary_region = "iad"        # example region
+kill_signal = "SIGINT"
+kill_timeout = 5
+
+[env]
+  # Use Fly Secrets for actual values; these are placeholders
+  WEB_ORIGIN = "https://your-front-end-domain.com"
+  JWT_SECRET = "your-jwt-secret"
+
+[deploy]
+  release_command = "alembic upgrade head"  # Run migrations on deploy
+
+[experimental]
+  allowed_public_ports = []
+  auto_rollback = true
+
+[http_service]
+  internal_port = 8000
+  force_https = true
+
+[[services]]
+  processes = ["app"]
+  protocol = "tcp"
+  internal_port = 8000
+  concurrency = { type = "connections", soft_limit = 20, hard_limit = 25 }
+  [[services.ports]]
+    port = 80
+    handlers = ["http"]
+  [[services.ports]]
+    port = 443
+    handlers = ["tls", "http"]
+  [[services.tcp_checks]]
+    grace_period = "1s"
+    interval = "15s"
+    timeout = "2s"
+    # (TCP health check to ensure app is listening)

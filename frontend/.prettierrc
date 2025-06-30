@@ -1,0 +1,6 @@
+// .prettierrc (formatting preferences)
+{
+  "singleQuote": false,
+  "semi": true,
+  "trailingComma": "es5"
+}
