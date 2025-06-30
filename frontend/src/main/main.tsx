@@ -1,9 +1,9 @@
 // frontend/src/main.tsx
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import App from './App';
+import App from '../App';
 import './index.css';           // Tailwind base styles
-import { GameProvider } from './context/GameContext';
+import { GameProvider } from '../context/GameContext';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
