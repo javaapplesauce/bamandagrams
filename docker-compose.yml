@@ -1,0 +1,40 @@
+# docker-compose.yml
+version: "3.9"
+services:
+  backend:
+    build: ./backend
+    env_file: .env         # load environment variables (e.g., JWT secret, etc.)
+    environment:
+      - DATABASE_URL=postgresql+asyncpg://postgres:postgres@db:5432/bamandagrams
+      - WEB_ORIGIN=http://localhost:3000
+      - ENABLE_FX=${ENABLE_FX:-0}
+    depends_on:
+      - db
+    ports:
+      - "8000:8000"        # expose back-end API server
+    command: >
+      bash -c "alembic upgrade head &&
+               uvicorn backend.app.main:app --host 0.0.0.0 --port 8000"
+               # Run DB migrations, then start FastAPI/SocketIO server
+
+  frontend:
+    build: ./frontend
+    environment:
+      - VITE_API_URL=http://localhost:8000   # back-end base URL for API
+    ports:
+      - "3000:3000"        # front-end dev server
+    depends_on:
+      - backend
+    command: ["yarn", "dev", "--host", "0.0.0.0"]  # start Vite dev server
+
+  db:
+    image: postgres:15-alpine
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=bamandagrams
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+volumes:
+  pgdata:
