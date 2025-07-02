@@ -11,6 +11,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import HTMLResponse
 from pydantic import BaseModel
 from sqlalchemy.ext.asyncio import AsyncSession
+from starlette.websockets import WebSocketDisconnect
 
 from . import models, schemas, crud  # import ORM models, Pydantic schemas, DB CRUD ops (defined in other modules)
 
@@ -74,7 +75,7 @@ class PlayerState:
 def get_game(code: str) -> GameState:
     game = games.get(code)
     if not game:
-        raise WebSocketException(message=f"Game {code} not found")
+        raise WebSocketDisconnect()
     return game
 
 # Background task to enforce turn timeout
